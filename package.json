@@ -1,0 +1,23 @@
+{
+  "name": "ecommerce",
+  "version": "0.0.0",
+  "description": "Kitty Mart Created yooo yooo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SubhanginiMohapatra/KittyMart.git"
+  },
+  "keywords": [
+    "kitta",
+    "kitty"
+  ],
+  "author": "kitty the great",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SubhanginiMohapatra/KittyMart/issues"
+  },
+  "homepage": "https://github.com/SubhanginiMohapatra/KittyMart#readme"
+}
