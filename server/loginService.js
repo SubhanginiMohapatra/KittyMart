@@ -1,7 +1,7 @@
 var bodyParser = require('body-parser');
 var urlencodedParser = bodyParser.urlencoded({extended:false});
 var MongoClient = require('mongodb').MongoClient;
-var url = 'mongodb://127.0.0.1:27017/Ecommerce';
+var url = 'mongodb://127.0.0.1:27017';
 
 module.exports = (function(app){
 
@@ -19,12 +19,32 @@ module.exports = (function(app){
 
 // Login TO DB==================================================================
   app.get('/demo',urlencodedParser,function(req,res){
-   MongoClient.connect(url, function(err, db) {
-   db.collection('userprofile').findOne({ name: 'vikash'}, function(err, user) {
+   MongoClient.connect(url, function(err, client) {
+   var db = client.db('local');
+   db.collection('userprofile').save({ name: 'vikash'}, function(err, user) {
              if(user ===null){
                res.end("Login invalid");
             }else if (user.name === req.body.name && user.pass === req.body.pass){
             res.render('completeprofile',{profileData:user});
+
+          } else {
+            console.log("Credentials wrong");
+            res.end("Login invalid");
+          }
+   });
+ });
+});
+
+
+ app.get('/userId',urlencodedParser,function(req,res){
+   var data = req.query.sellerId;
+   MongoClient.connect(url, function(err, client) {
+   var db = client.db('local');
+   db.collection('userprofile').save({ name: 'kitty'}, function(err, user) {
+             if(user ===null){
+               res.end("Login invalid");
+            }else if (user.name === req.body.name && user.pass === req.body.pass){
+            res.render('kitty');
 
           } else {
             console.log("Credentials wrong");
@@ -47,7 +67,8 @@ app.post('/regiterToDb',urlencodedParser,function(req,res){
    var obj = JSON.stringify(req.body);
    console.log("Final reg Data : "+obj);
    var jsonObj = JSON.parse(obj);
-      MongoClient.connect(url, function(err, db) {
+      MongoClient.connect(url, function(err, client) {
+      var db = client.db('local');
       db.collection("userprofile").insertOne(jsonObj, function(err, res) {
      if (err) throw err;
      console.log("1 document inserted");
